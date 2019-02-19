@@ -23,7 +23,7 @@ import QtQuick.Controls 2.3 as QtControls2
 import QtQuick.Layouts 1.0
 import QtQuick.Window 2.0 // for Screen
 //We need units from it
-import org.kde.plasma.core 2.0 as Plasmacore
+import org.kde.plasma.core 2.0 as PlasmaCore
 import org.kde.plasma.wallpapers.image 2.0 as Wallpaper
 import org.kde.kquickcontrols 2.0 as KQuickControls
 import org.kde.kquickcontrolsaddons 2.0
@@ -31,6 +31,8 @@ import org.kde.kconfig 1.0 // for KAuthorized
 import org.kde.draganddrop 2.0 as DragDrop
 import org.kde.kcm 1.1 as KCM
 import org.kde.kirigami 2.5 as Kirigami
+
+import org.kde.activities 0.1 as Activities
 
 ColumnLayout {
     id: root
@@ -41,12 +43,19 @@ ColumnLayout {
     property var cfg_SlidePaths: ""
     property int cfg_SlideInterval: 0
 
+    property string cfg_activityId: ""
+
     function saveConfig() {
         imageWallpaper.commitDeletion();
     }
 
     SystemPalette {
         id: syspal
+    }
+
+    Activities.ActivityInfo {
+        id: activityInfo
+        activityId: ":current"
     }
 
     Wallpaper.Image {
@@ -317,7 +326,7 @@ ColumnLayout {
         id: buttonsRow
         Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
         QtControls2.Button {
-            visible: (configDialog.currentWallpaper == "org.kde.slideshow")
+            visible: (configDialog.currentWallpaper == "org.kde.latte.slideshow")
             icon.name: "list-add"
             text: i18nd("plasma_wallpaper_org.kde.image","Add Folder...")
             onClicked: imageWallpaper.showAddSlidePathsDialog()
@@ -334,5 +343,11 @@ ColumnLayout {
             visible: KAuthorized.authorize("ghns")
             onClicked: imageWallpaper.getNewWallpaper(this);
         }
+    }
+
+    /* Latte Side */
+    Component.onCompleted: {
+        cfg_activityId = activityInfo.activityId;
+        console.log(" Setting activity for Latte SlideShow :: " +cfg_activityId);
     }
 }

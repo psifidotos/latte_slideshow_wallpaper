@@ -34,6 +34,8 @@
       <label>Fade Transition Animation  (ms)</label>
       <default>1000</default>
     </entry>
+    <entry name="activityId" type="String">
+      <default></default>
+    </entry>
   </group>
-
 </kcfg>

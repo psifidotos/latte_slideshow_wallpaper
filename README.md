@@ -13,5 +13,5 @@ This is a Plasma 5 Wallpaper plugin that informs [Latte](https://phabricator.kde
 
 # Install
 
-Wallpaper Interface -> Get New Wallpapers -> Latte SlideShow
+Right click for Desktop -> Configure Desktop -> Get New Plugins -> Latte SlideShow 
 

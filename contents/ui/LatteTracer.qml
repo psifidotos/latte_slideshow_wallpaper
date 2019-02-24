@@ -20,11 +20,23 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 import org.kde.plasma.core 2.0 as PlasmaCore
 
+import org.kde.activities 0.1 as Activities
+
 Item {
     //! Latte DBus Interaction
 
     property string currentScreenName: Screen.name
     property string lastScreenName: ""
+
+    Activities.ActivityInfo {
+        id: activityInfo
+        activityId: ":current"
+        onActivityIdChanged: {
+            if (activityId === root.activityId) {
+                Qt.callLater(sendBackground);
+            }
+        }
+    }
 
     onCurrentScreenNameChanged: {
         if (lastScreenName !== "" && currentScreenName !==lastScreenName) {
@@ -46,6 +58,11 @@ Item {
     }
 
     function sendBackground() {
+        if (root.activityId !== activityInfo.activityId || root.modelImage === "") {
+            // block updates when no needed
+            return;
+        }
+
         var command = 'qdbus org.kde.lattedock /Latte setBackgroundFromBroadcast ' + root.activityId + ' ' + Screen.name + ' "' + root.modelImage +'"';
         console.log("Executing command : " + command);
         lastScreenName = Screen.name;
@@ -61,9 +78,7 @@ Item {
     Connections {
         target: root
         onModelImageChanged: {
-            if (root.modelImage !== "") {
-                Qt.callLater(sendBackground);
-            }
+            Qt.callLater(sendBackground);
         }
     }
 }

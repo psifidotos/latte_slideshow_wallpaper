@@ -2,14 +2,17 @@
 This is a Plasma 5 Wallpaper plugin that informs [Latte](https://phabricator.kde.org/source/latte-dock/repository/master/) about the current background in order for Latte to update its colors.
 
 <p align="center">
-<img src="https://media.giphy.com/media/dJQBDzringmYycdGRl/giphy.gif" width="620" ><br/>
-<i>slideshow in 4secs delay</i>
+<a href="https://www.youtube.com/watch?v=ar5vHHBY2Ak" target="_blank">
+  <img src="https://imgur.com/VpaRhbW.png" alt="slideshow demonstration" width="620" >
+</a>  
+<br/>
+<i>slideshow demonstration</i>
 </p>
 
 # Requires
 
 - Plasma Desktop
-- Latte Git Version
+- Latte >= v0.9.x
 
 # Install
 

@@ -30,6 +30,8 @@ import org.kde.draganddrop 2.0 as DragDrop
 import org.kde.kcm 1.1 as KCM
 import org.kde.kirigami 2.5 as Kirigami
 
+import org.kde.activities 0.1 as Activities
+
 ColumnLayout {
     id: root
     property alias cfg_Color: colorButton.color
@@ -41,12 +43,19 @@ ColumnLayout {
     property int cfg_SlideInterval: 0
     property var cfg_UncheckedSlides: []
 
+    property string cfg_activityId: ""
+
     function saveConfig() {
         imageWallpaper.commitDeletion();
     }
 
     SystemPalette {
         id: syspal
+    }
+
+    Activities.ActivityInfo {
+        id: activityInfo
+        activityId: ":current"
     }
 
     Wallpaper.Image {
@@ -450,5 +459,11 @@ ColumnLayout {
             viewMode: NewStuff.Page.ViewMode.Preview
             onChangedEntriesChanged: imageWallpaper.newStuffFinished();
         }
+    }
+
+    /* Latte Side */
+    Component.onCompleted: {
+        cfg_activityId = activityInfo.activityId;
+        console.log(" Setting activity for Latte SlideShow :: " +cfg_activityId);
     }
 }

@@ -35,6 +35,8 @@ QQC2.StackView {
     readonly property bool blur: wallpaper.configuration.Blur
     readonly property size sourceSize: Qt.size(root.width * Screen.devicePixelRatio, root.height * Screen.devicePixelRatio)
 
+    readonly property string activityId: wallpaper.configuration.activityId
+
     //public API, the C++ part will look for those
     function setUrl(url) {
         wallpaper.configuration.Image = url
@@ -59,7 +61,7 @@ QQC2.StackView {
     Component.onCompleted: {
         wallpaper.loading = true; // delays ksplash until the wallpaper has been loaded
 
-        if (wallpaper.pluginName === "org.kde.slideshow") {
+        if (wallpaper.pluginName === "org.kde.latte.slideshow") {
             wallpaper.setAction("open", i18nd("plasma_wallpaper_org.kde.image", "Open Wallpaper Image"), "document-open");
             wallpaper.setAction("next", i18nd("plasma_wallpaper_org.kde.image", "Next Wallpaper Image"), "user-desktop");
         }
@@ -74,6 +76,9 @@ QQC2.StackView {
         slideTimer: wallpaper.configuration.SlideInterval
         slideshowMode: wallpaper.configuration.SlideshowMode
         uncheckedSlides: wallpaper.configuration.UncheckedSlides
+    }
+
+    LatteTracer{
     }
 
     onFillModeChanged: Qt.callLater(loadImage);

@@ -138,7 +138,7 @@ ColumnLayout {
 
         QtControls2.ComboBox {
             id: slideshowComboBox
-            visible: configDialog.currentWallpaper == "org.kde.slideshow"
+            visible: configDialog.currentWallpaper == "org.kde.latte.slideshow"
             Kirigami.FormData.label: i18nd("plasma_wallpaper_org.kde.image", "Order:")
             model: [
                 {
@@ -439,7 +439,7 @@ ColumnLayout {
         Loader {
             anchors.fill: parent
             sourceComponent: (configDialog.currentWallpaper == "org.kde.image") ? thumbnailsComponent :
-                ((configDialog.currentWallpaper == "org.kde.slideshow") ? foldersComponent : undefined)
+                ((configDialog.currentWallpaper == "org.kde.latte.slideshow") ? foldersComponent : undefined)
         }
     }
 
